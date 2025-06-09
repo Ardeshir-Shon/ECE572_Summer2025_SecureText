@@ -19,6 +19,9 @@ import os
 import sys
 import time
 from datetime import datetime
+import hashlib
+import bcrypt
+
 
 class SecureTextServer:
     def __init__(self, host='localhost', port=12345):
@@ -52,9 +55,12 @@ class SecureTextServer:
         if username in self.users:
             return False, "Username already exists"
         
+        # Hash the password using SHA-256
+        password_hash = hashlib.sha256(password.encode()).hexdigest()
+
         # SECURITY VULNERABILITY: Storing password in plaintext!
         self.users[username] = {
-            'password': password,  # PLAINTEXT PASSWORD!
+            'password': password_hash,  # PLAINTEXT PASSWORD!
             'created_at': datetime.now().isoformat(),
             'reset_question': 'What is your favorite color?',
             'reset_answer': 'blue'  # Default for simplicity
@@ -67,8 +73,12 @@ class SecureTextServer:
         if username not in self.users:
             return False, "Username not found"
         
+        # Hash the entered password before comparison
+        entered_hash = hashlib.sha256(password.encode()).hexdigest()
+        stored_hash = self.users[username]['password']
+
         # SECURITY VULNERABILITY: Plaintext password comparison!
-        if self.users[username]['password'] == password:
+        if entered_hash == stored_hash:
             return True, "Authentication successful"
         else:
             return False, "Invalid password"
