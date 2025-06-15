@@ -1,0 +1,27 @@
+{
+  "test2": {
+    "password": "$2b$12$qYxoOoyn9KXCJzuLdBHtwOLL7sqVBrinR0FyCr5bo1jYYIrYdF/n.",
+    "created_at": "2025-06-14T17:19:07.018163",
+    "reset_question": "What is your favorite color?",
+    "reset_answer": "blue"
+  },
+  "sha": {
+    "password": "$2b$12$zvU6dATxjvquE0heqPHlDur1XKNfMjSodCJ0pR.FIQ3EghsEGcq2e",
+    "hash_alg": "sha256",
+    "created_at": "2025-06-14T17:27:20.243276",
+    "reset_question": "What is your favorite color?",
+    "reset_answer": "blue"
+  },
+  "bcrypt": {
+    "password": "$2b$12$Eb9L/z26H9JNwEBJ332YNOEe.Z3nEseOk8AmANvjJjdIzata36s4W",
+    "created_at": "2025-06-14T17:41:55.877964",
+    "reset_question": "What is your favorite color?",
+    "reset_answer": "blue"
+  },
+  "salttest": {
+    "password": "$2b$12$igsgA/cgHPysMLxYW.hzc.OUPiLpQPrMg.47tM4y2oUx5F0iJE/GO",
+    "created_at": "2025-06-14T20:42:55.429205",
+    "reset_question": "What is your favorite color?",
+    "reset_answer": "blue"
+  }
+}
