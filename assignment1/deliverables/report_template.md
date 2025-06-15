@@ -11,7 +11,8 @@
 **Student Name**: Alpar Arman  
 **Student ID**: V01072465  
 **Assignment**: Assignment 1  
-**Date**: [Submission Date]  
+**Date**: June 15, 2025
+
 **GitHub Repository**: https://github.com/Alpi157/ECE572_Summer2025_SecureText.git
 
 ---
@@ -26,7 +27,10 @@ For Assignment 3: Focus on cryptographic protocols and end-to-end security
 Keep this section to 1-2 paragraphs.
 -->
 
-[Write your executive summary here]
+This assignment involved analyzing, exploiting, and securing a custom console-based messaging application, SecureText. The assignment was divided into three tasks. In Task 1, I conducted a full security audit of the original codebase, identifying major vulnerabilities such as plaintext password storage, unauthenticated resets, lack of encryption. In Task 2, I re-engineered the authentication system to eliminate plaintext and fast unsalted hashes, replacing them with slow, per-user salted bcrypt hashes. I validated the new approach using benchmark scripts and a dictionary attack. In Task 3, I analyzed network-level vulnerabilities, implemented both a flawed and a secure MAC, and attempted a length extension attack using hashpump. Although the final exploit did not fully succeed due to encoding issues, all code and logic were written and documented.
+
+This project strengthened my understanding of secure password storage, message integrity, and real-world attack vectors in network protocols. Despite platform-specific hurdles and failed attack execution in Part C, I successfully demonstrated secure software engineering practices and explored both theoretical and practical aspects of application-layer cryptography.
+
 
 ---
 
@@ -72,11 +76,6 @@ This analysis focuses on confidentiality, integrity, authentication, and authori
 
 #### 2.1.2 Implementation Details
 <!-- Describe your implementation approach and include the corresponding screenshots -->
-
-**Key Components**:
-- Component 1: [Description]
-- Component 2: [Description]
-- Component 3: [Description]
 
 **1. Plaintext password storage**:
 
@@ -241,24 +240,33 @@ The server spawns one thread per connection. After a few thousand connections, i
 
 
 
-**Code Snippet** (Key Implementation):
-```python
-# Include only the most important code snippets
-# Do not paste entire files as the actual attack or security-fixed codes are included in the deliverables directory
-def key_function():
-    # Your implementation
-    pass
-```
-
 #### 2.1.3 Challenges and Solutions
 <!-- What problems did you encounter and how did you solve them? -->
 
-#### 2.1.4 Testing and Validation
-<!-- How did you test that your implementation works correctly? -->
+The original application lacked structure and security abstractions, making it difficult to trace all insecure flows, especially for things like user enumeration and authentication bypass.
 
-**Test Cases**
+Solution:
+
+I manually annotated the source code and traced command handling from the socket layer down to the authentication logic. I added inline comments and print statements to follow logic paths during testing.
+
+
+
+#### 2.1.4 Testing and Validation
+Plaintext Password Storage:
+
+Verified that passwords were stored as-is in users.json.
+
+Opened the file after account creation and confirmed the raw password.
+
+Wrote a small script that looped through a password list and sent login attempts for a fixed username.
+
+No delay or lockout was triggered.
+
 **Evidence**:
-<!-- Include extra screenshots, logs, or other evidence -->
+![screenshot1](https://github.com/user-attachments/assets/756e2a9b-d65d-461a-9c98-aa170aa1e53b)
+![screenshot2](https://github.com/user-attachments/assets/7d16450c-2631-4f76-9abb-cc7c68299286)
+
+
 
 ---
 
@@ -435,6 +443,9 @@ The goal of Task 3 was to (1) observe how an unprotected chat leaks and can be t
 **Part A: Eavesdropping & Tampering concept**
 
 Wireshark filter tcp.port == 12345 showed full JSON envelopes in clear-text, e.g.
+
+![screenshot3](https://github.com/user-attachments/assets/0bc5ccff-2e7d-442d-8172-baa6cbb59dc7)
+
 
 What an attacker sees: user credentials (during LOGIN), private messages and even admin-style commands all traverse unencrypted.
 
