@@ -14,6 +14,7 @@ import os
 import sys
 import time
 import bcrypt
+import hashlib
 from datetime import datetime
 
 class SecureTextServer:
@@ -49,13 +50,18 @@ class SecureTextServer:
         migrated = False
         for username, data in self.users.items():
             pw = data.get('password', '')
-            if not pw.startswith('$2'):
+            alg = data.get('hash_alg')
+
+            if not pw.startswith('$2') and alg != 'sha256':
                 new_hash = self._hash_password(pw)
                 self.users[username]['password'] = new_hash
+                self.users[username].pop('salt', None)
+                self.users[username].pop('hash_alg', None)
                 migrated = True
-        if migrated:
-            print(f"[+] Migrated plaintext passwords to bcrypt hashes for {len(self.users)} users")
-            self.save_users()
+            elif pw.startswith('$2'):
+                if 'hash_alg' in data:
+                    data.pop('hash_alg')
+                    migrated = True
 
     def _hash_password(self, password: str, rounds: int = 12) -> str:
         return bcrypt.hashpw(password.encode('utf-8'),
@@ -84,11 +90,27 @@ class SecureTextServer:
         if username not in self.users:
             return False, "Username not found"
 
-        stored_hash = self.users[username]['password']
-        if self._verify_password(password, stored_hash):
-            return True, "Authentication successful"
+        user = self.users[username]
+        stored_hash = user.get('password', '')
+        alg = user.get('hash_alg')
+
+        if alg == 'sha256':
+            salt = user.get('salt', '')
+            sha_candidate = hashlib.sha256((salt + password).encode()).hexdigest()
+            if sha_candidate == stored_hash:
+                new_hash = self._hash_password(password)
+                user['password'] = new_hash
+                user.pop('salt', None)
+                user.pop('hash_alg', None)
+                self.save_users()
+                return True, "Authentication successful"
+            else:
+                return False, "Invalid password"
         else:
-            return False, "Invalid password"
+            if self._verify_password(password, stored_hash):
+                return True, "Authentication successful"
+            else:
+                return False, "Invalid password"
 
     def reset_password(self, username, new_password):
         if username not in self.users:

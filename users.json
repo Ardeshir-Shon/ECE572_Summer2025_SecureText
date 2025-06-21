@@ -7,7 +7,6 @@
   },
   "sha": {
     "password": "$2b$12$zvU6dATxjvquE0heqPHlDur1XKNfMjSodCJ0pR.FIQ3EghsEGcq2e",
-    "hash_alg": "sha256",
     "created_at": "2025-06-14T17:27:20.243276",
     "reset_question": "What is your favorite color?",
     "reset_answer": "blue"

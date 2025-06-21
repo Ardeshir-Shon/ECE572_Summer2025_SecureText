@@ -42,16 +42,19 @@ class SecureTextServer:
         except IOError as e:
             print(f"Error saving users: {e}")
 
-    def _sha256_hash(self, password: str) -> str:
-        return hashlib.sha256(password.encode('utf-8')).hexdigest()
+    def _sha256_hash(self, password: str, salt: str) -> str:
+        data = (salt + password).encode('utf-8')
+        return hashlib.sha256(data).hexdigest()
 
     def create_account(self, username, password):
         if username in self.users:
             return False, "Username already exists"
 
-        pw_hash = self._sha256_hash(password)
+        salt = os.urandom(16).hex()
+        pw_hash = self._sha256_hash(password, salt)
         self.users[username] = {
             'password': pw_hash,
+            'salt': salt,
             'hash_alg': 'sha256',
             'created_at': datetime.now().isoformat(),
             'reset_question': 'What is your favorite color?',
@@ -66,7 +69,8 @@ class SecureTextServer:
             return False, "Username not found"
 
         stored_hash = user.get('password', '')
-        attempt_hash = self._sha256_hash(password)
+        salt = user.get('salt', '')
+        attempt_hash = self._sha256_hash(password, salt)
 
         if attempt_hash == stored_hash:
             return True, "Authentication successful"
@@ -78,8 +82,10 @@ class SecureTextServer:
         if username not in self.users:
             return False, "Username not found"
 
-        pw_hash = self._sha256_hash(new_password)
+        salt = os.urandom(16).hex()
+        pw_hash = self._sha256_hash(new_password, salt)
         self.users[username]['password'] = pw_hash
+        self.users[username]['salt'] = salt
         self.users[username]['hash_alg'] = 'sha256'
         self.save_users()
         return True, "Password reset successful"

@@ -18,17 +18,18 @@ with open(users_path, 'r') as f:
 wordlist = ['12345', 'password', 'letmein', 'admin', 'secret', 'welcome']
 
 
-print("\n=== Unsalted SHA-256 crack ===")
+print("\n=== salted SHA-256 crack ===")
 sha_users = {
-    u: data['password']
+    u: (data['password'], data.get('salt', ''))
     for u, data in users.items()
     if data.get('hash_alg') == 'sha256'
 }
 
 start = time.time()
-for username, stored_hash in sha_users.items():
+for username, (stored_hash, salt) in sha_users.items():
     for pw in wordlist:
-        if hashlib.sha256(pw.encode()).hexdigest() == stored_hash:
+        candidate = hashlib.sha256((salt + pw).encode()).hexdigest()
+        if candidate == stored_hash:
             print(f"[+] Cracked SHA256 for {username}: {pw}")
             break
     else:
