@@ -25,11 +25,26 @@ were correct as they were.
 - **Assignment 1 cross-reference.** The Secure MAC deliverable was mislabeled Task 3 Part C;
   it is Part D.
 
+### Coherence fixes (cross-file review)
+- **F1 — Hash standardization.** Changed Assignment 1's flawed MAC from `MD5(k‖m)` to
+  `SHA-256(k‖m)` everywhere it appears (README Part B/C and the deliverables table) so the
+  assignment matches the course notes' length-extension example, and switched
+  `tools/length_extension.py` to SHA-256. Verified end to end.
+- **F2 — Assignment 3 description.** The root README advertised A3 as asymmetric
+  crypto / digital signatures / non-repudiation; the real A3 is end-to-end encryption
+  (ECDH P-256 + AES-256-GCM + HKDF + 30-min sessions). Rewrote the root README A3 block to
+  match; `assignment3/README.md` was already correct and is unchanged.
+- **F3 — Assignment 2 point total (pending instructor confirmation).** A2 summed to 115;
+  changed Task 4 from 40 to 25 so it totals 100, matching A1's `/100` scheme. Confirm or
+  revert.
+- **F4 — OAuth callback URL.** A2 gave two redirect URIs; standardized both to
+  `http://localhost:8080/oauth/callback`.
+
 ### Added
 - **Pinned `requirements.txt`** in each assignment (A1: stdlib-only core with optional pins;
   A2: pyotp, qrcode, requests; A3: cryptography).
 - **`tools/length_extension.py`** — a dependency-free, commented reference length-extension
-  attack against `MD5(k‖m)`, so students don't lose a day to `hash_extender` (needs
+  attack against `SHA-256(k‖m)`, so students don't lose a day to `hash_extender` (needs
   compiling) or `HashPump` (stale). The maintained `hashpumpy` package is documented as an
   alternative.
 - **Explicit Assignment 1 deliverable filenames** so grading is consistent.
