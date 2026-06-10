@@ -1,6 +1,6 @@
 # SecureText ECE 572 Assignment Series
 
-This repository contains series of assignments for the ECE 572 in Summer 2026, by Dr. Ardeshir Shojaeinasab. We will be using a console-based messenger application called "SecureText". Students will progressively identify vulnerabilities, demonstrate attacks, and implement security fixes across three assignments.
+This repository contains a series of assignments for ECE 572 in Summer 2026, taught by Dr. Ardeshir Shojaeinasab. We will be using a console-based messenger application called "SecureText". Students will progressively identify vulnerabilities, demonstrate attacks, and implement security fixes across three assignments.
 
 ## Learning Objectives
 
@@ -12,7 +12,7 @@ By completing this assignment series, you will gain hands-on experience with:
 - Zero Trust security principles
 - Asymmetric cryptography and digital signatures
 
-## Assinment Structure
+## Assignment Structure
 
 This hands-on practice is divided into **three assignments**, each building upon the previous one:
 
