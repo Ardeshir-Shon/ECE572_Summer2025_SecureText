@@ -20,12 +20,12 @@ After completing this assignment, you will understand:
 ## Assignment Structure
 
 ```
-assignments/
-└── assignment3/
-    ├── README.md
-    ├── requirements.txt
-    └── deliverables/
-        └── [Your implementation files]
+assignment3/
+├── README.md
+├── report_template.md
+├── requirements.txt
+└── deliverables/
+    └── [Your implementation files]
 ```
 
 ## Technical Requirements
@@ -152,8 +152,11 @@ Make sure you include the following sections in your report:
    - Session expiration and re-authentication
    - Security property verification
 
-**Due Date**: [July 31th - 11 PM]
+**Due Date**: July 31st, 2026 — 11 PM
 **Submission**: Submit your completed report on Brightspace with your GitHub repository link
 ---
 
-**Note**: In case you use GenAI you must note and reference collaboration of GenAI in detail showcasing what was the contribution in details.
+**Note on AI use**: If you use an AI tool, disclose it in a `GENAI.md` file in your
+deliverables — the prompts you used and which files it touched — and be ready to explain
+anything you submit. See the Academic Integrity section of the root README for the full
+policy.

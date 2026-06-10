@@ -1,3 +1,10 @@
+# SecureText runtime database (written relative to the working directory).
+# Students should never commit their local user database.
+users.json
+
+# Instructor review scaffolding for the Summer 2026 overhaul -- never committed.
+OVERHAUL_NOTES.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

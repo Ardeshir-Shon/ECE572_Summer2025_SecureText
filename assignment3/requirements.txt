@@ -1,0 +1,9 @@
+# Assignment 3 — pinned Python dependencies
+# Install with:  pip install -r requirements.txt
+
+# End-to-end encryption: ECDH on P-256, HKDF-SHA256, and AES-256-GCM all come
+# from a single well-maintained library.
+cryptography==41.0.7
+
+# Newer releases of cryptography are fine and encouraged; this is the floor
+# verified for the assignment. Bump if your environment ships a later one.

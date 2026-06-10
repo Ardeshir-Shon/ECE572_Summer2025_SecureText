@@ -1,6 +1,6 @@
 # Development Environment Setup Guide
 
-This guide will help you set up your development environment for the ECE 572 Summer 2025 assignment series
+This guide will help you set up your development environment for the ECE 572 Summer 2026 assignment series
 
 ## Prerequisites
 
@@ -53,19 +53,32 @@ sudo apt install openssl
 
 ## Repository Setup
 
-### 1. Fork the Repository
-1. Go to the main repository on GitHub
-2. Click "Fork" button
-3. Clone your fork:
-```bash
-git clone https://github.com/YOUR_USERNAME/ECE572_Summer2025_SecureText.git
-cd ECE572_Summer2025_SecureText
-```
+### 1. Mirror the Course Repo into a Private Repo
+
+Do **not** use GitHub's Fork button. A fork of a public repo is always public and cannot
+be made private, which conflicts with the rule that your graded work stays private until
+the course ends. Mirror the repo into your own private repo instead:
+
+1. On GitHub, create a new, **empty, private** repository (no README/license).
+2. Mirror the course repo into it:
+   ```bash
+   git clone --bare https://github.com/Ardeshir-Shon/ECE572_SecureText.git
+   cd ECE572_SecureText.git
+   git push --mirror https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git
+   cd ..
+   rm -rf ECE572_SecureText.git
+   ```
+   (If that URL 404s, use the exact course-repo URL posted on Brightspace.)
+3. Clone your private repo to work in:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git
+   cd YOUR_PRIVATE_REPO
+   ```
 
 ### 2. Set Up Remote Tracking
 ```bash
-# Add upstream remote (my repository as the course repo for the upcoming fixes/updates to fetch and pull)
-git remote add upstream https://github.com/Ardeshir-Shon/ECE572_Summer2025_SecureText.git
+# Add the course repo as 'upstream' so you can fetch/pull fixes and updates during the term
+git remote add upstream https://github.com/Ardeshir-Shon/ECE572_SecureText.git
 
 # Verify remotes
 git remote -v
@@ -87,10 +100,16 @@ git checkout -b assignment3-solutions (or any other name you like)
 
 ### 1. Test Base Application
 ```bash
-cd src/
-python3 securetext.py server
-python3 securetext.py
+python3 src/securetext.py server   # run the server in one terminal
+python3 src/securetext.py          # run a client in another
 ```
+
+> **Heads-up — where `users.json` lives.** The server writes its user database to
+> `users.json` *relative to the directory you launch it from*, not to `src/`. If you
+> start the server from the repo root one day and from `src/` the next, you'll appear to
+> "lose" all your accounts — they're just in a different `users.json`. Pick one working
+> directory and stick with it. `users.json` is gitignored, so don't expect (or try) to
+> commit it.
 
 ### 2. Test Network Capture
 ```bash

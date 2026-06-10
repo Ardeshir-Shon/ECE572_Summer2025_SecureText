@@ -1,0 +1,21 @@
+# Assignment 1 — pinned Python dependencies
+#
+# The core of Assignment 1 runs on the Python standard library:
+#   - hashlib.pbkdf2_hmac / hashlib.scrypt  -> slow password hashing (Task 2)
+#   - hashlib.md5, hmac                     -> the MAC work (Task 3)
+# A clean Python 3.8+ install is enough to finish the assignment, so there are
+# no mandatory third-party packages here. The pins below are OPTIONAL and only
+# matter depending on the approach you choose.
+
+# --- Task 2: slow password hashing ---------------------------------------
+# Only needed if you pick bcrypt or Argon2 instead of the stdlib PBKDF2/scrypt.
+# bcrypt==4.2.1
+# argon2-cffi==23.1.0
+
+# --- Task 3, Part C: length-extension attack -----------------------------
+# OPTIONAL. The repo ships a dependency-free reference attack at
+# tools/length_extension.py that you can use directly. If you would rather use
+# a library, hashpumpy is the maintained one, but it builds a C extension and
+# needs a compiler plus OpenSSL headers, so it is not guaranteed to install
+# cleanly on every machine:
+# hashpumpy==1.2.0

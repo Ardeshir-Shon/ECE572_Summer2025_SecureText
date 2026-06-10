@@ -2,17 +2,17 @@
 
 **Use this template for all three assignments and modify if needed**
 
-**This template is made by GenAI help, if you believe some changes are required or some parts need revision, feel free to send a merge request or send an email!**
+**This template is a starting point, not a straitjacket. If a section doesn't fit your work, adapt it; if you think it should change for everyone, open a merge request or send me an email.**
 
 ---
 
-**Course**: ECE 572; Summer 2025
+**Course**: ECE 572; Summer 2026
 **Instructor**: Dr. Ardeshir Shojaeinasab
 **Student Name**: [Your Name]  
 **Student ID**: [Your Student ID]  
 **Assignment**: [Assignment 1/2/3]  
 **Date**: [Submission Date]  
-**GitHub Repository**: [Link to **your** forked repository]
+**GitHub Repository**: [Link to **your** private repository]
 
 ---
 
@@ -300,18 +300,19 @@ Before submitting, ensure you have:
 - [ ] **Tests**: Security and functionality tests implemented after fix
 - [ ] **GitHub Link**: Repository link included in report and Brightspace submission
 - [ ] **Academic Integrity**: All sources properly cited, work is your own
+- [ ] **AI Disclosure**: `GENAI.md` included in deliverables, disclosing any AI use
 
 ---
 
 **Submission Instructions**:
 1. Save this report as PDF: `[StudentID]_Assignment[X]_Report.pdf`
 2. Submit PDF to Brightspace
-3. Include your GitHub repository fork link in the Brightspace submission comments
+3. Include your private GitHub repository link in the Brightspace submission comments
 4. Ensure your repository is private until after course completion otherwise you'll get zero grade
 
 **Final Notes**:
-- Use **GenAI** for help but do not let **GenAI** to do all the work and you should understand everything yourself
-- If you used any **GenAI** help make sure you cite the contribution of **GenAI** properly
+- Disclose AI use in a `GENAI.md` file in your deliverables (prompts used, which files AI touched). See the Academic Integrity section of the root README.
+- Be ready to explain any code you submit. If you can't explain it, don't submit it.
 - Be honest about limitations and challenges
 - Focus on demonstrating understanding, not just working code
 - Proofread for clarity and technical accuracy

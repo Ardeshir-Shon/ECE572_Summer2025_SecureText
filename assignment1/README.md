@@ -136,7 +136,7 @@ The application sends messages in plaintext over the network, making them vulner
 #### Part B: Flawed MAC Implementation
 
 1. **Implement H(k||m) MAC**:
-   - Add a flawed MAC using the construction `MAC(k,m) = MD5(k||m)`
+   - Add a flawed MAC using the construction `MAC(k,m) = SHA-256(k||m)`
    - Implement shared key distribution (simple pre-shared key is acceptable)
    - Add MAC verification to message processing
 
@@ -145,15 +145,22 @@ The application sends messages in plaintext over the network, making them vulner
    - Ensure the application can process these structured messages as key value format
    - Implement MAC verification for command messages(keep it simple)
 
+> **Buffer note.** The base app reads with `recv(1024)`. Once you add a hex MAC tag and the
+> longer `CMD=...` command payloads, a single message can exceed 1024 bytes and arrive
+> split across reads — which shows up as a `json.JSONDecodeError` that *looks* like a crypto
+> bug but isn't. If you hit that, either keep your test messages comfortably under the
+> buffer or bump the buffer / loop until you have a full JSON object. Don't redesign the
+> protocol for this.
+
 #### Part C: Length Extension Attack
 
 1. **Implement Vulnerable MAC**:
-   - Implement the flawed MAC construction `MAC(k,m) = MD5(k||m)` exactly as described in course notes
+   - Implement the flawed MAC construction `MAC(k,m) = SHA-256(k||m)` exactly as described in course notes
    - Use the Merkle-Damgård construction vulnerability
    - Create a message format that supports commands: `"CMD=SET_QUOTA&USER=bob&LIMIT=100"`
 
 2. **Length Extension Attack Implementation**:
-   - Use hash_extender or HashPump tools or implement the length extension attack from scratch to exploit and run the attack
+   - Mount the attack using any of: the dependency-free reference at `tools/length_extension.py` (read it, understand it, then use or adapt it), the maintained `hashpumpy` pip package, or your own from-scratch implementation. `hash_extender`/`HashPump` are listed in older guides but are painful to build on current systems — don't lose a day to them.
    - Demonstrate the exact attack scenario from course: 
      - Original: `"CMD=SET_QUOTA&USER=bob&LIMIT=100"`
      - Forged: `"CMD=SET_QUOTA&USER=bob&LIMIT=100&padding&CMD=GRANT_ADMIN&USER=attacker"`
@@ -186,27 +193,46 @@ sudo tcpdump -i lo -A -s 0 port 12345
 3. Apply filter: tcp.port == 12345
 
 
-#### Note that you can extend the hash yourself or use the current open source hash externder tools
+#### Note: you may extend the hash yourself, use the reference implementation in `tools/length_extension.py`, or use the `hashpumpy` package. Whichever you pick, you must be able to explain why the forged MAC validates.
 
 
 ### Deliverables
-- **Attack Scripts and implementation**: All attacks and exploit scripts should be in the deliverable folder and evidences must be logged and record in the report
+- **Attack Scripts and implementation**: All attacks and exploit scripts should be in the deliverable folder and evidences must be logged and recorded in the report
 - **Network Capture Evidence**: Screenshots and packet captures showing plaintext communication, MAC and Secure MAC
 - **Salted and Hashed Implementation**: SecureText version with task 2 fixed code
 - **Flawed MAC Implementation**: SecureText version with vulnerable MAC; task 3, part B fixed code
 - **Length Extension Attack**: Successful demonstration with evidence
-- **Secure MAC Implementation**: Final version with HMAC protection; task 3 part C fixed code
+- **Secure MAC Implementation**: Final version with HMAC protection; task 3 part D fixed code
 - **Security Analysis**: Comparison of MAC constructions and their properties
+
+#### Expected filenames
+
+So grading is consistent, put your work in `assignment1/deliverables/` using exactly these
+names. Keep each version as its own file rather than overwriting one app — graders need to
+run the flawed and secure versions side by side.
+
+| File | What it is |
+|------|------------|
+| `securetext_salted.py` | Task 2: base app with salted, slow-hashed password storage |
+| `migrate_passwords.py` | Task 2: script that upgrades existing plaintext passwords |
+| `attack_dictionary.py` | Task 2: dictionary attack showing salting/slow-hashing defeats it |
+| `securetext_flawed_mac.py` | Task 3 B/C: version using the vulnerable `SHA-256(k‖m)` MAC |
+| `attack_length_extension.py` | Task 3 C: your length-extension forgery script |
+| `securetext_secure_mac.py` | Task 3 D: final version using HMAC-SHA256 |
+| `capture_evidence/` | Task 3 A: pcap files and screenshots from the eavesdropping capture |
+
+If you genuinely need an extra file, name it `<task>_<purpose>.py` and explain it in the
+report. Don't submit a single file that you edited in place across tasks.
 
 ---
 
 ## Report Requirements
 
-Use the provided `REPORT_TEMPLATE.md` and include all necessary information
+Use the provided `report_template.md` and include all necessary information
 
 ### Evidence Requirements
 - **Screenshots**: Console outputs, network captures, attack demonstrations
-- **Code Snippets**: Key implementation details (not entire files, entire files should be in the forked repo in the proper assignment deliverable)
+- **Code Snippets**: Key implementation details (not entire files, entire files should be in your private repo in the proper assignment deliverable)
 - **Logs**: Attack outputs, MAC verification results
 - **Performance Data**: Hash timing comparisons and other relevant information
 
@@ -238,8 +264,8 @@ Use the provided `REPORT_TEMPLATE.md` and include all necessary information
 
 ---
 
-**Due Date**: June 18th, 2025
-**Submission**: Submit your completed report on Brightspace with your GitHub repository fork link
+**Due Date**: June 18th, 2026
+**Submission**: Submit your completed report on Brightspace with the link to your private GitHub repository
 
 In this assignment series security vulnerabilities are everywhere - your job is to find them, attack and fix them systematically.
 

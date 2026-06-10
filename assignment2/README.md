@@ -3,7 +3,7 @@
 
 ## Overview
 
-Building on Assignment 1's foundation, you will now implement advanced authentication mechanisms and authorization controls. This assignment explores modern authentication patterns, multi-factor authentication, and Zero Trust security principles.
+Assignment 1 secured the data — passwords at rest, messages on the wire. Now you turn to who is on the other end. This assignment adds multi-factor authentication, OAuth-based login, and Zero Trust authorization controls to SecureText.
 
 ## Learning Objectives
 
@@ -28,7 +28,7 @@ After completing this assignment, you will understand:
 
 ---
 
-## Task 4: Multi-Factor Authentication with TOTP (40 points)
+## Task 4: Multi-Factor Authentication with TOTP (25 points)
 
 ### Background
 Passwords alone are vulnerable to various attacks (phishing, database breaches, credential stuffing). Multi-factor authentication adds additional security layers by requiring multiple forms of verification.
@@ -101,7 +101,7 @@ OAuth 2.0 allows users to authenticate using existing accounts (e.g., GitHub) wi
 1. **Choose an OAuth Provider**:
    - Use **GitHub** as the OAuth provider for this task.
    - Register your application to obtain a **Client ID** and **Client Secret** from [GitHub Developer Settings](https://github.com/settings/developers).
-   - Set your redirect URI to a placeholder like `http://localhost`.
+   - Set your redirect URI to `http://localhost:8080/oauth/callback`.
 
 2. **Console-Based OAuth Login**:
    - Launch the authorization URL in the user’s default browser using Python.
@@ -202,7 +202,7 @@ Zero Trust is a modern security model based on the principle of "never trust, al
 
 ---
 
-### 🔹 Part C: Logging and Basic Monitoring (15 points)
+### Part C: Logging and Basic Monitoring (15 points)
 
 1. **Action Logging**:
    - Log authentication attempts (successful and failed)
@@ -275,7 +275,7 @@ Zero Trust is a modern security model based on the principle of "never trust, al
 
 ---
 
-**Due Date**: July 12th, 11 PM
+**Due Date**: July 12th, 2026 — 11 PM
 **Submission**: Submit your report on Brightspace with your GitHub repository link
 
 **Good Luck!**
