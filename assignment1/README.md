@@ -202,7 +202,7 @@ sudo tcpdump -i lo -A -s 0 port 12345
 
 ## Report Requirements
 
-Use the provided `REPORT_TEMPLATE.md` and include all necessary information
+Use the provided `report_template.md` and include all necessary information
 
 ### Evidence Requirements
 - **Screenshots**: Console outputs, network captures, attack demonstrations

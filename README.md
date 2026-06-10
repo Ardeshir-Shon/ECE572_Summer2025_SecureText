@@ -81,28 +81,32 @@ of your own. It takes four commands and you only do it once.
 ### Repository Structure
 
 ```
-ECE572_Summer2025_SecureText/
-├── README.md                     # This file
-├── assignments/
-│   ├── assignment1/
-│   │   ├── README.md            # Assignment 1 instructions
-│   │   ├── REPORT_TEMPLATE.md   # Report template
-│   │   └── deliverables/        # Your solutions go here
-│   ├── assignment2/
-│   │   ├── README.md            # Assignment 2 instructions
-│   │   ├── REPORT_TEMPLATE.md   # Report template
-│   │   └── deliverables/        # Your solutions go here
-│   └── assignment3/
-│       ├── README.md            # Assignment 3 instructions
-│       ├── REPORT_TEMPLATE.md   # Report template
-│       └── deliverables/        # Your solutions go here
+ECE572_SecureText/
+├── README.md                  # This file
+├── CHANGELOG.md               # What changed each term (v2025, v2026, ...)
+├── LICENSE
+├── .gitignore
+├── assignment1/
+│   ├── README.md              # Assignment 1 instructions
+│   ├── report_template.md     # Report template
+│   ├── requirements.txt       # Pinned Python dependencies for this assignment
+│   └── deliverables/          # Your solutions go here
+├── assignment2/
+│   ├── README.md
+│   ├── report_template.md
+│   ├── requirements.txt
+│   └── deliverables/
+├── assignment3/
+│   ├── README.md
+│   ├── report_template.md
+│   ├── requirements.txt
+│   └── deliverables/
 ├── src/
-│   └── securetext.py           # Base insecure messenger
-│ 
-├── docs/
-│   └── SETUP.md               # Detailed setup instructions
-│
-└── .gitignore
+│   └── securetext.py          # Base insecure messenger
+├── tools/
+│   └── length_extension.py    # Reference length-extension attack (Assignment 1, Task 3)
+└── docs/
+    └── SETUP.md               # Detailed setup instructions
 ```
 
 ## Base Application
@@ -136,8 +140,8 @@ The repository includes a fully functional but **intentionally insecure** messen
 
 For each assignment:
 
-1. **Read the assignment instructions** in the respective `assignments/assignmentX/README.md`
-2. **Implement your solutions** in the `assignments/assignmentX/deliverables/` folder
+1. **Read the assignment instructions** in the respective `assignmentX/README.md`
+2. **Implement your solutions** in the `assignmentX/deliverables/` folder
 3. **Write your report** using the provided template and put it as a deliverable beside the codes
 4. **Commit your changes**:
    ```bash

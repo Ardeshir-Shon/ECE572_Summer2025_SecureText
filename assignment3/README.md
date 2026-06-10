@@ -20,12 +20,12 @@ After completing this assignment, you will understand:
 ## Assignment Structure
 
 ```
-assignments/
-└── assignment3/
-    ├── README.md
-    ├── requirements.txt
-    └── deliverables/
-        └── [Your implementation files]
+assignment3/
+├── README.md
+├── report_template.md
+├── requirements.txt
+└── deliverables/
+    └── [Your implementation files]
 ```
 
 ## Technical Requirements
