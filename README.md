@@ -244,4 +244,14 @@ or sign up for a slot.
 - Test your solutions thoroughly
 - Document your attacks with screenshots and logs
 
+## Course Offerings / History
+
+This is a multi-year course project; its history is part of its value. Each offering is
+tagged in git, and `CHANGELOG.md` records what changed between them.
+
+- **Summer 2026 (`v2026`)** — revised offering. See `CHANGELOG.md`.
+- **Summer 2025 (`v2025`)** — original offering; first run of the SecureText series.
+
+Future terms: tag the term's final state and add a line here, newest on top.
+
 Good luck!
