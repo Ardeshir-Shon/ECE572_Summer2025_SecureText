@@ -190,13 +190,32 @@ sudo tcpdump -i lo -A -s 0 port 12345
 
 
 ### Deliverables
-- **Attack Scripts and implementation**: All attacks and exploit scripts should be in the deliverable folder and evidences must be logged and record in the report
+- **Attack Scripts and implementation**: All attacks and exploit scripts should be in the deliverable folder and evidences must be logged and recorded in the report
 - **Network Capture Evidence**: Screenshots and packet captures showing plaintext communication, MAC and Secure MAC
 - **Salted and Hashed Implementation**: SecureText version with task 2 fixed code
 - **Flawed MAC Implementation**: SecureText version with vulnerable MAC; task 3, part B fixed code
 - **Length Extension Attack**: Successful demonstration with evidence
-- **Secure MAC Implementation**: Final version with HMAC protection; task 3 part C fixed code
+- **Secure MAC Implementation**: Final version with HMAC protection; task 3 part D fixed code
 - **Security Analysis**: Comparison of MAC constructions and their properties
+
+#### Expected filenames
+
+So grading is consistent, put your work in `assignment1/deliverables/` using exactly these
+names. Keep each version as its own file rather than overwriting one app — graders need to
+run the flawed and secure versions side by side.
+
+| File | What it is |
+|------|------------|
+| `securetext_salted.py` | Task 2: base app with salted, slow-hashed password storage |
+| `migrate_passwords.py` | Task 2: script that upgrades existing plaintext passwords |
+| `attack_dictionary.py` | Task 2: dictionary attack showing salting/slow-hashing defeats it |
+| `securetext_flawed_mac.py` | Task 3 B/C: version using the vulnerable `MD5(k‖m)` MAC |
+| `attack_length_extension.py` | Task 3 C: your length-extension forgery script |
+| `securetext_secure_mac.py` | Task 3 D: final version using HMAC-SHA256 |
+| `capture_evidence/` | Task 3 A: pcap files and screenshots from the eavesdropping capture |
+
+If you genuinely need an extra file, name it `<task>_<purpose>.py` and explain it in the
+report. Don't submit a single file that you edited in place across tasks.
 
 ---
 
