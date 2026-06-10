@@ -1,6 +1,6 @@
 # Development Environment Setup Guide
 
-This guide will help you set up your development environment for the ECE 572 Summer 2025 assignment series
+This guide will help you set up your development environment for the ECE 572 Summer 2026 assignment series
 
 ## Prerequisites
 

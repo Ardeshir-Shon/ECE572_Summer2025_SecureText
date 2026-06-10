@@ -1,6 +1,6 @@
 # SecureText ECE 572 Assignment Series
 
-This repository contains series of assignments for the ECE 572 in Summer 2025, by Dr. Ardeshir Shojaeinasab. We will be using a console-based messenger application called "SecureText". Students will progressively identify vulnerabilities, demonstrate attacks, and implement security fixes across three assignments.
+This repository contains series of assignments for the ECE 572 in Summer 2026, by Dr. Ardeshir Shojaeinasab. We will be using a console-based messenger application called "SecureText". Students will progressively identify vulnerabilities, demonstrate attacks, and implement security fixes across three assignments.
 
 ## Learning Objectives
 

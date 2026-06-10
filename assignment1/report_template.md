@@ -6,7 +6,7 @@
 
 ---
 
-**Course**: ECE 572; Summer 2025
+**Course**: ECE 572; Summer 2026
 **Instructor**: Dr. Ardeshir Shojaeinasab
 **Student Name**: [Your Name]  
 **Student ID**: [Your Student ID]  

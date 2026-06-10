@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Author: Ardeshir S.
-Course: ECE 572; Summer 2025
+Course: ECE 572; Summer 2026
 SecureText Console Messenger (Insecure Genesis Version)
 A basic console-based messenger application with intentional security vulnerabilities.
 

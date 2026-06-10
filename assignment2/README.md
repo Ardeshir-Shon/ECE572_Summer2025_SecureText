@@ -275,7 +275,7 @@ Zero Trust is a modern security model based on the principle of "never trust, al
 
 ---
 
-**Due Date**: July 12th, 11 PM
+**Due Date**: July 12th, 2026 — 11 PM
 **Submission**: Submit your report on Brightspace with your GitHub repository link
 
 **Good Luck!**

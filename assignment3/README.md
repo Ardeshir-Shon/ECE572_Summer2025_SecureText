@@ -152,7 +152,7 @@ Make sure you include the following sections in your report:
    - Session expiration and re-authentication
    - Security property verification
 
-**Due Date**: [July 31th - 11 PM]
+**Due Date**: July 31st, 2026 — 11 PM
 **Submission**: Submit your completed report on Brightspace with your GitHub repository link
 ---
 
