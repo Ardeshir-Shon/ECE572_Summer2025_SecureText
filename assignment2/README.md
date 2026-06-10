@@ -28,7 +28,7 @@ After completing this assignment, you will understand:
 
 ---
 
-## Task 4: Multi-Factor Authentication with TOTP (40 points)
+## Task 4: Multi-Factor Authentication with TOTP (25 points)
 
 ### Background
 Passwords alone are vulnerable to various attacks (phishing, database breaches, credential stuffing). Multi-factor authentication adds additional security layers by requiring multiple forms of verification.
