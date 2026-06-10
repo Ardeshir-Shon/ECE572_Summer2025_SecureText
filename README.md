@@ -11,7 +11,7 @@ you'd actually trust, touching:
 - Network eavesdropping and traffic analysis
 - Authentication and multi-factor authentication
 - Zero Trust principles
-- Asymmetric cryptography and digital signatures
+- End-to-end encryption and key exchange
 
 ## Assignment Structure
 
@@ -63,7 +63,7 @@ of your own. It takes four commands and you only do it once.
    cd ..
    rm -rf ECE572_SecureText.git
    ```
-   (If that course-repo URL 404s, use the exact URL posted on Brightspace — the
+   (If that course-repo URL 404s, use the exact URL posted on Brightspace. The
    repository name may differ between terms.)
 
 3. Clone your private repo and create a working branch:
@@ -165,7 +165,7 @@ For each assignment:
 - **Length-extension**: a dependency-free reference attack ships at `tools/length_extension.py`; the `hashpumpy` pip package is a maintained alternative (the older `hash_extender`/`HashPump` tools often won't build on current systems)
 
 ### Python Libraries
-Each assignment has its own `requirements.txt` listing the packages it needs — install with
+Each assignment has its own `requirements.txt` listing the packages it needs. Install with
 `pip install -r assignmentX/requirements.txt`. Assignment 1 runs on the standard library.
 
 ## Documentation
@@ -187,48 +187,49 @@ Read this section as carefully as the tasks. It changed for 2026.
 
 The point of these assignments is the doing. The exam is built around the same attacks
 and fixes you implement here, and it asks you to reason as a security expert about
-scenarios you haven't seen — identify the threat, the attack, the defense. If you shortcut
+scenarios you haven't seen: you have to work out what the threat is, how the attack lands,
+and what you'd do to stop it. If you shortcut
 the assignment, you don't just risk a plagiarism flag; you walk into the exam having
 skipped the practice it tests. The grade you lose there is larger than the one you'd lose
 here. That is the whole reason for the rules below.
 
 So the rule for AI tools is about *where* they help, not whether you touch them. Use them
 to explain a concept, to debug an error you've already tried to read yourself, to check
-your understanding of length extension or HMAC. Do not use them to generate the substance
-— the attack scripts, the security fixes, the written analysis. That work has to be yours,
-authored and understood, because the exam assumes you did it.
+your understanding of length extension or HMAC. Do not use them to generate the substance:
+the attack scripts, the security fixes, the analysis you write up. That work has to be
+yours, authored and understood, because the exam assumes you did it.
 
 **Disclosure (required).** Every submission must include a `GENAI.md` file in that
 assignment's `deliverables/` folder. List the prompts you used in any meaningful way, and
-say which files an AI tool touched and how. This is not a trap — honest, specific
-disclosure is expected and fine. Heavy undisclosed use that surfaces later is the problem.
+say which files an AI tool touched and how. This is not a trap. Honest, specific disclosure
+is expected and fine. Heavy undisclosed use that surfaces later is the problem.
 
 **Explainability (required).** Anything you submit, you must be able to explain on request,
 in office hours or by email: *why does your forged MAC validate? why does HMAC resist the
 attack your other script just pulled off?* If you cannot explain your own submission, we
-treat that as an integrity issue, not a knowledge gap. This is exactly how the exam is
-graded, so it should not be a surprise.
+treat that as an integrity issue rather than a gap in your knowledge. This is exactly how
+the exam is graded, so it should not be a surprise.
 
-**Other people's code.** Don't submit someone else's implementation — not a classmate's,
-not a past student's, not a copy lifted from a public repo. Talking through ideas and
-approaches with classmates is genuinely fine and encouraged; sharing or copying code is
+**Other people's code.** Don't submit someone else's implementation. That rules out a
+classmate's, a past student's, or anything lifted from a public repo. Talking through ideas
+and approaches with classmates is genuinely fine and encouraged; sharing or copying code is
 not.
 
 **Reading real code vs. copying it.** This is a security course, and reading real-world
 code is part of learning it. Studying how a library computes HMAC, how OpenSSL structures
-something, or how a published length-extension tool works — in order to understand it — is
+something, or how a published length-extension tool works (in order to understand it) is
 encouraged, and you cite what you read. Copying any of it in as your submitted solution is
 not. The test is simple: is the work you hand in authored and understood by you? Cite your
 external resources and libraries, and include your private repository link in every
 submission.
 
 <!-- ===== OPTIONAL GRADED COMPONENT — delete from this marker to the closing marker to remove it ===== -->
-**Optional walkthrough (small bonus).** For a small bonus, give a ~3-minute walkthrough —
-recorded or in person — explaining *why your forged MAC validates*: the resumed internal
+**Optional walkthrough (small bonus).** For a small bonus, give a ~3-minute walkthrough
+(recorded or in person) explaining *why your forged MAC validates*: the resumed internal
 state, the glue padding, and why knowing `H(k‖m)` is enough to extend it without ever
-knowing `k`. It's the clearest signal that the understanding is yours, and it's the kind of
-question the written exam will ask. Drop the recording link in your `GENAI.md` or report,
-or sign up for a slot.
+knowing `k`. It's the clearest signal that the understanding is yours, and close to the
+kind of question the written exam asks. Drop the recording link in your `GENAI.md` or
+report, or sign up for a slot.
 <!-- ===== end OPTIONAL GRADED COMPONENT ===== -->
 
 ## Getting Help
@@ -240,7 +241,7 @@ or sign up for a slot.
 
 - Keep your repository private until after the course ends otherwise you receive zero on assignments
 - Each assignment builds upon the previous one
-- Start early - security implementations can be complex
+- Start early, since security implementations can be complex
 - Test your solutions thoroughly
 - Document your attacks with screenshots and logs
 
@@ -249,8 +250,8 @@ or sign up for a slot.
 This is a multi-year course project; its history is part of its value. Each offering is
 tagged in git, and `CHANGELOG.md` records what changed between them.
 
-- **Summer 2026 (`v2026`)** — revised offering. See `CHANGELOG.md`.
-- **Summer 2025 (`v2025`)** — original offering; first run of the SecureText series.
+- **Summer 2026 (`v2026`)**: revised offering. See `CHANGELOG.md`.
+- **Summer 2025 (`v2025`)**: original offering, the first run of the SecureText series.
 
 Future terms: tag the term's final state and add a line here, newest on top.
 

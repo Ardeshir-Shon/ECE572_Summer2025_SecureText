@@ -147,7 +147,7 @@ The application sends messages in plaintext over the network, making them vulner
 
 > **Buffer note.** The base app reads with `recv(1024)`. Once you add a hex MAC tag and the
 > longer `CMD=...` command payloads, a single message can exceed 1024 bytes and arrive
-> split across reads — which shows up as a `json.JSONDecodeError` that *looks* like a crypto
+> split across reads, which shows up as a `json.JSONDecodeError` that *looks* like a crypto
 > bug but isn't. If you hit that, either keep your test messages comfortably under the
 > buffer or bump the buffer / loop until you have a full JSON object. Don't redesign the
 > protocol for this.
@@ -160,7 +160,7 @@ The application sends messages in plaintext over the network, making them vulner
    - Create a message format that supports commands: `"CMD=SET_QUOTA&USER=bob&LIMIT=100"`
 
 2. **Length Extension Attack Implementation**:
-   - Mount the attack using any of: the dependency-free reference at `tools/length_extension.py` (read it, understand it, then use or adapt it), the maintained `hashpumpy` pip package, or your own from-scratch implementation. `hash_extender`/`HashPump` are listed in older guides but are painful to build on current systems — don't lose a day to them.
+   - Mount the attack using any of: the dependency-free reference at `tools/length_extension.py` (read it, understand it, then use or adapt it), the maintained `hashpumpy` pip package, or your own from-scratch implementation. `hash_extender`/`HashPump` are listed in older guides but are painful to build on current systems. Don't lose a day to them.
    - Demonstrate the exact attack scenario from course: 
      - Original: `"CMD=SET_QUOTA&USER=bob&LIMIT=100"`
      - Forged: `"CMD=SET_QUOTA&USER=bob&LIMIT=100&padding&CMD=GRANT_ADMIN&USER=attacker"`
@@ -208,7 +208,7 @@ sudo tcpdump -i lo -A -s 0 port 12345
 #### Expected filenames
 
 So grading is consistent, put your work in `assignment1/deliverables/` using exactly these
-names. Keep each version as its own file rather than overwriting one app — graders need to
+names. Keep each version as its own file rather than overwriting one app. Graders need to
 run the flawed and secure versions side by side.
 
 | File | What it is |
@@ -267,6 +267,6 @@ Use the provided `report_template.md` and include all necessary information
 **Due Date**: June 18th, 2026
 **Submission**: Submit your completed report on Brightspace with the link to your private GitHub repository
 
-In this assignment series security vulnerabilities are everywhere - your job is to find them, attack and fix them systematically.
+In this assignment series, security vulnerabilities are everywhere. Your job is to find them, attack and fix them systematically.
 
 Good luck!

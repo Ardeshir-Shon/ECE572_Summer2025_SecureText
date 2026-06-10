@@ -3,7 +3,7 @@
 
 ## Overview
 
-Assignment 1 secured the data — passwords at rest, messages on the wire. Now you turn to who is on the other end. This assignment adds multi-factor authentication, OAuth-based login, and Zero Trust authorization controls to SecureText.
+Assignment 1 secured the data: passwords at rest, messages on the wire. Now you turn to who is on the other end. This assignment adds multi-factor authentication, OAuth-based login, and Zero Trust authorization controls to SecureText.
 
 ## Learning Objectives
 
@@ -166,7 +166,7 @@ OAuth 2.0 allows users to authenticate using existing accounts (e.g., GitHub) wi
 ## Task 6: Zero Trust Implementation (40 points)
 
 ### Background
-Zero Trust is a modern security model based on the principle of "never trust, always verify." It assumes that every user and device must be continuously authenticated, authorized, and validated — even if they are already inside the network. This task explores practical Zero Trust ideas in the context of your SecureText messenger.
+Zero Trust is a modern security model based on the principle of "never trust, always verify." It assumes that every user and device must be continuously authenticated, authorized, and validated, even when they are already inside the network. This task explores practical Zero Trust ideas in the context of your SecureText messenger.
 
 ---
 
@@ -245,7 +245,7 @@ Zero Trust is a modern security model based on the principle of "never trust, al
 
 ## Important Notes
 
-- **API Keys**: Never commit OAuth secrets to your repository - use environment variables
+- **API Keys**: Never commit OAuth secrets to your repository; use environment variables
 - **Testing**: Test with multiple users and different scenarios
 - **Progressive Enhancement**: Each task builds on the previous one(if not conflicting)
 - **Security First**: Always consider the security implications of your implementations
@@ -258,7 +258,7 @@ Zero Trust is a modern security model based on the principle of "never trust, al
 - **Secret Storage**: Encrypt TOTP secrets in the database
 
 ### OAuth Issues
-- **HTTPS Requirements**: Some providers require HTTPS - use ngrok for local testing
+- **HTTPS Requirements**: Some providers require HTTPS, so use ngrok for local testing
 - **State Parameter**: Always validate state to prevent CSRF attacks
 - **Token Storage**: Securely store and handle access tokens
 

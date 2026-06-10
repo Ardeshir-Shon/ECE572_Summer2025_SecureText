@@ -311,7 +311,7 @@ Before submitting, ensure you have:
 - Be ready to explain any code you submit. If you can't explain it, don't submit it.
 - Be honest about limitations and challenges
 - Focus on demonstrating understanding, not just working code
-- Quality over quantity - depth of analysis is more important than length
+- Quality over quantity: depth of analysis is more important than length
 - Proofread for clarity and technical accuracy
 
 Good luck!
