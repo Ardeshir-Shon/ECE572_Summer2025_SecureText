@@ -136,7 +136,7 @@ The application sends messages in plaintext over the network, making them vulner
 #### Part B: Flawed MAC Implementation
 
 1. **Implement H(k||m) MAC**:
-   - Add a flawed MAC using the construction `MAC(k,m) = MD5(k||m)`
+   - Add a flawed MAC using the construction `MAC(k,m) = SHA-256(k||m)`
    - Implement shared key distribution (simple pre-shared key is acceptable)
    - Add MAC verification to message processing
 
@@ -155,7 +155,7 @@ The application sends messages in plaintext over the network, making them vulner
 #### Part C: Length Extension Attack
 
 1. **Implement Vulnerable MAC**:
-   - Implement the flawed MAC construction `MAC(k,m) = MD5(k||m)` exactly as described in course notes
+   - Implement the flawed MAC construction `MAC(k,m) = SHA-256(k||m)` exactly as described in course notes
    - Use the Merkle-Damgård construction vulnerability
    - Create a message format that supports commands: `"CMD=SET_QUOTA&USER=bob&LIMIT=100"`
 
@@ -216,7 +216,7 @@ run the flawed and secure versions side by side.
 | `securetext_salted.py` | Task 2: base app with salted, slow-hashed password storage |
 | `migrate_passwords.py` | Task 2: script that upgrades existing plaintext passwords |
 | `attack_dictionary.py` | Task 2: dictionary attack showing salting/slow-hashing defeats it |
-| `securetext_flawed_mac.py` | Task 3 B/C: version using the vulnerable `MD5(k‖m)` MAC |
+| `securetext_flawed_mac.py` | Task 3 B/C: version using the vulnerable `SHA-256(k‖m)` MAC |
 | `attack_length_extension.py` | Task 3 C: your length-extension forgery script |
 | `securetext_secure_mac.py` | Task 3 D: final version using HMAC-SHA256 |
 | `capture_evidence/` | Task 3 A: pcap files and screenshots from the eavesdropping capture |

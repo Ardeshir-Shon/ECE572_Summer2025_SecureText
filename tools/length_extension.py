@@ -1,110 +1,129 @@
 #!/usr/bin/env python3
 """
-Reference length-extension attack against the flawed MAC  MAC(k, m) = MD5(k || m).
+Reference length-extension attack against the flawed MAC  MAC(k, m) = SHA-256(k || m).
 
-This is provided for Assignment 1, Task 3, Part C so that you don't lose a day
-fighting with `hash_extender` (needs compiling from source) or `HashPump`
-(stale, often won't build on current systems). You may use this, the maintained
-`hashpumpy` pip package, or your own implementation -- but you must understand
-why the attack works and be able to explain it.
+This matches the length-extension example in the course notes (the
+`X-Auth: SHA256(secret_key || path || query || body)` construction). It is provided for
+Assignment 1, Task 3, Part C so that you don't lose a day fighting with `hash_extender`
+(needs compiling from source) or `HashPump` (stale, often won't build on current systems).
+You may use this, the maintained `hashpumpy` pip package, or your own implementation -- but
+you must understand why the attack works and be able to explain it.
 
 WHY IT WORKS
 ------------
-MD5 is a Merkle-Damgard hash. It processes the message in 512-bit blocks,
-folding each block into a 128-bit internal state. The final state IS the digest
--- nothing is done to "close it off." So if you know MD5(k || m), you know the
-internal state of the hash *after* it absorbed (k || m) plus MD5's padding. You
-can set MD5's registers to that state and keep hashing additional bytes, exactly
-as if the original hasher had continued. The result is a valid digest for
+SHA-256 is a Merkle-Damgard hash. It processes the message in 512-bit blocks, folding each
+block into a 256-bit internal state (eight 32-bit words). The final state IS the digest --
+nothing is done to "close it off." So if you know SHA-256(k || m), you know the internal
+state of the hash *after* it absorbed (k || m) plus SHA-256's padding. You can set the
+eight state words to that digest and keep hashing additional bytes, exactly as if the
+original hasher had continued. The result is a valid digest for
 
     k || m || glue_padding || suffix
 
-without ever knowing k. You only need to know len(k) (or guess it -- the script
-makes that easy to brute force).
+without ever knowing k. You only need to know len(k) (or guess it -- the script makes that
+easy to brute force).
 
-This file deliberately implements MD5 from scratch, because Python's hashlib
-won't let you resume from a chosen internal state. Read `_md5_compress` and
-`forge` together: the attack is the last ~15 lines, the rest is just MD5.
+This file deliberately implements SHA-256 from scratch, because Python's hashlib won't let
+you resume from a chosen internal state. Read `_sha256_compress` and `forge` together: the
+attack is the last ~15 lines, the rest is just SHA-256. (Note SHA-256 is big-endian and
+appends a 64-bit big-endian bit length; MD5 was little-endian -- that's the only structural
+difference relevant here.)
 
 Usage as a library:
-    from length_extension import forge, md5_mac
+    from length_extension import forge, sha256_mac
     forged_msg, forged_mac = forge(original_msg, original_mac, suffix, key_len)
 
-Run `python3 length_extension.py` to see the self-test (it forges a MAC and
-verifies it against a real secret key the "attacker" half never sees).
+Run `python3 length_extension.py` to see the self-test (it forges a MAC and verifies it
+against a real secret key the "attacker" half never sees).
 """
 
 import struct
 import hashlib
 
 # ---------------------------------------------------------------------------
-# MD5 from scratch, written so the internal state can be set by the attacker.
+# SHA-256 from scratch, written so the internal state can be set by the attacker.
 # ---------------------------------------------------------------------------
 
-_S = [7, 12, 17, 22] * 4 + [5, 9, 14, 20] * 4 + [4, 11, 16, 23] * 4 + [6, 10, 15, 21] * 4
-_K = [int(abs(__import__("math").sin(i + 1)) * 2**32) & 0xFFFFFFFF for i in range(64)]
+# Initial hash values: first 32 bits of the fractional parts of the square roots
+# of the first 8 primes.
+_H0 = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+       0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19]
+
+# Round constants: first 32 bits of the fractional parts of the cube roots of the
+# first 64 primes.
+_K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+]
+
 _MASK = 0xFFFFFFFF
 
 
-def _rotl(x, c):
-    return ((x << c) | (x >> (32 - c))) & _MASK
+def _rotr(x, n):
+    return ((x >> n) | (x << (32 - n))) & _MASK
 
 
-def _md5_compress(state, block):
-    """Fold one 512-bit block into the four-word state (the MD5 round function)."""
-    a, b, c, d = state
-    m = struct.unpack("<16I", block)
+def _sha256_compress(state, block):
+    """Fold one 512-bit block into the eight-word state (the SHA-256 round function)."""
+    w = list(struct.unpack(">16I", block))
+    for i in range(16, 64):
+        s0 = _rotr(w[i - 15], 7) ^ _rotr(w[i - 15], 18) ^ (w[i - 15] >> 3)
+        s1 = _rotr(w[i - 2], 17) ^ _rotr(w[i - 2], 19) ^ (w[i - 2] >> 10)
+        w.append((w[i - 16] + s0 + w[i - 7] + s1) & _MASK)
+
+    a, b, c, d, e, f, g, h = state
     for i in range(64):
-        if i < 16:
-            f = (b & c) | (~b & d)
-            g = i
-        elif i < 32:
-            f = (d & b) | (~d & c)
-            g = (5 * i + 1) % 16
-        elif i < 48:
-            f = b ^ c ^ d
-            g = (3 * i + 5) % 16
-        else:
-            f = c ^ (b | ~d)
-            g = (7 * i) % 16
-        f = (f + a + _K[i] + m[g]) & _MASK
-        a, d, c = d, c, b
-        b = (b + _rotl(f, _S[i])) & _MASK
-    return [(state[0] + a) & _MASK, (state[1] + b) & _MASK,
-            (state[2] + c) & _MASK, (state[3] + d) & _MASK]
+        S1 = _rotr(e, 6) ^ _rotr(e, 11) ^ _rotr(e, 25)
+        ch = (e & f) ^ (~e & g)
+        t1 = (h + S1 + ch + _K[i] + w[i]) & _MASK
+        S0 = _rotr(a, 2) ^ _rotr(a, 13) ^ _rotr(a, 22)
+        maj = (a & b) ^ (a & c) ^ (b & c)
+        t2 = (S0 + maj) & _MASK
+        h, g, f = g, f, e
+        e = (d + t1) & _MASK
+        d, c, b = c, b, a
+        a = (t1 + t2) & _MASK
+
+    return [(state[i] + v) & _MASK for i, v in enumerate((a, b, c, d, e, f, g, h))]
 
 
-def _md_padding(msg_len):
-    """The 1-bit, zeros, and 64-bit length that MD5 appends to a message of msg_len bytes."""
+def _sha_padding(msg_len):
+    """The 1-bit, zeros, and 64-bit BIG-endian length SHA-256 appends to a msg_len-byte message."""
     pad = b"\x80"
     pad += b"\x00" * ((56 - (msg_len + 1) % 64) % 64)
-    pad += struct.pack("<Q", (msg_len * 8) & 0xFFFFFFFFFFFFFFFF)
+    pad += struct.pack(">Q", (msg_len * 8) & 0xFFFFFFFFFFFFFFFF)
     return pad
 
 
-def md5_from_state(state, tail, prior_len_bytes):
+def sha256_from_state(state, tail, prior_len_bytes):
     """
-    Continue an MD5 whose internal state is `state`, having already absorbed
-    `prior_len_bytes` bytes (the original (k||m) plus its glue padding), then
-    hash `tail` and return the final hex digest.
+    Continue a SHA-256 whose internal state is `state`, having already absorbed
+    `prior_len_bytes` bytes (the original (k||m) plus its glue padding), then hash `tail`
+    and return the final hex digest.
     """
-    # Everything before `tail` is a whole number of blocks, so only `tail`
-    # plus the final length field remains to be processed.
+    # Everything before `tail` is a whole number of blocks, so only `tail` plus the final
+    # length field remains to be processed.
     msg = tail
     total_len = prior_len_bytes + len(tail)
-    msg += _md_padding(total_len)
+    msg += _sha_padding(total_len)
     for off in range(0, len(msg), 64):
-        state = _md5_compress(state, msg[off:off + 64])
-    return "".join(struct.pack("<I", w).hex() for w in state)
+        state = _sha256_compress(state, msg[off:off + 64])
+    return "".join(struct.pack(">I", word).hex() for word in state)
 
 
-def md5_mac(key, message):
-    """The flawed MAC the assignment attacks:  MD5(key || message)."""
+def sha256_mac(key, message):
+    """The flawed MAC the assignment attacks:  SHA-256(key || message)."""
     if isinstance(message, str):
         message = message.encode()
     if isinstance(key, str):
         key = key.encode()
-    return hashlib.md5(key + message).hexdigest()
+    return hashlib.sha256(key + message).hexdigest()
 
 
 # ---------------------------------------------------------------------------
@@ -113,8 +132,8 @@ def md5_mac(key, message):
 
 def forge(original_message, original_mac, suffix, key_len):
     """
-    Given MAC = MD5(key || original_message), produce (forged_message, forged_mac)
-    such that  MD5(key || forged_message) == forged_mac, without knowing the key.
+    Given MAC = SHA-256(key || original_message), produce (forged_message, forged_mac)
+    such that  SHA-256(key || forged_message) == forged_mac, without knowing the key.
 
     key_len is the byte length of the secret key (brute-force it if unknown).
     Returns the forged message as bytes (it contains the binary glue padding).
@@ -124,14 +143,14 @@ def forge(original_message, original_mac, suffix, key_len):
     if isinstance(suffix, str):
         suffix = suffix.encode()
 
-    # Recover the hash state the original MAC left off in.
-    state = list(struct.unpack("<4I", bytes.fromhex(original_mac)))
+    # Recover the hash state the original MAC left off in (8 big-endian 32-bit words).
+    state = list(struct.unpack(">8I", bytes.fromhex(original_mac)))
 
     # The original hasher saw (key || original_message), then padded it.
-    glue = _md_padding(key_len + len(original_message))
+    glue = _sha_padding(key_len + len(original_message))
     prior_len = key_len + len(original_message) + len(glue)  # a multiple of 64
 
-    forged_mac = md5_from_state(state, suffix, prior_len)
+    forged_mac = sha256_from_state(state, suffix, prior_len)
     forged_message = original_message + glue + suffix
     return forged_message, forged_mac
 
@@ -142,13 +161,13 @@ def _self_test():
     suffix = b"&CMD=GRANT_ADMIN&USER=attacker"
 
     # Server computes the legitimate MAC; attacker captures (original, mac) on the wire.
-    captured_mac = md5_mac(secret, original)
+    captured_mac = sha256_mac(secret, original)
 
     # Attacker forges, knowing only original, captured_mac, suffix, and len(secret).
     forged_message, forged_mac = forge(original, captured_mac, suffix, len(secret))
 
     # Server verifies the forgery by recomputing the MAC over key || forged_message.
-    server_recompute = md5_mac(secret, forged_message)
+    server_recompute = sha256_mac(secret, forged_message)
 
     print("original message :", original)
     print("captured MAC     :", captured_mac)
@@ -163,7 +182,7 @@ def _self_test():
     # Also brute-force the key length the way a real attacker would (1..40 bytes).
     for guess in range(1, 41):
         fm, fmac = forge(original, captured_mac, suffix, guess)
-        if md5_mac(secret, fm) == fmac:
+        if sha256_mac(secret, fm) == fmac:
             print(f"brute-forced key length: {guess} (true length {len(secret)})")
             break
 
