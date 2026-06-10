@@ -53,19 +53,32 @@ sudo apt install openssl
 
 ## Repository Setup
 
-### 1. Fork the Repository
-1. Go to the main repository on GitHub
-2. Click "Fork" button
-3. Clone your fork:
-```bash
-git clone https://github.com/YOUR_USERNAME/ECE572_Summer2025_SecureText.git
-cd ECE572_Summer2025_SecureText
-```
+### 1. Mirror the Course Repo into a Private Repo
+
+Do **not** use GitHub's Fork button. A fork of a public repo is always public and cannot
+be made private, which conflicts with the rule that your graded work stays private until
+the course ends. Mirror the repo into your own private repo instead:
+
+1. On GitHub, create a new, **empty, private** repository (no README/license).
+2. Mirror the course repo into it:
+   ```bash
+   git clone --bare https://github.com/Ardeshir-Shon/ECE572_SecureText.git
+   cd ECE572_SecureText.git
+   git push --mirror https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git
+   cd ..
+   rm -rf ECE572_SecureText.git
+   ```
+   (If that URL 404s, use the exact course-repo URL posted on Brightspace.)
+3. Clone your private repo to work in:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git
+   cd YOUR_PRIVATE_REPO
+   ```
 
 ### 2. Set Up Remote Tracking
 ```bash
-# Add upstream remote (my repository as the course repo for the upcoming fixes/updates to fetch and pull)
-git remote add upstream https://github.com/Ardeshir-Shon/ECE572_Summer2025_SecureText.git
+# Add the course repo as 'upstream' so you can fetch/pull fixes and updates during the term
+git remote add upstream https://github.com/Ardeshir-Shon/ECE572_SecureText.git
 
 # Verify remotes
 git remote -v

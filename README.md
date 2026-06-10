@@ -45,15 +45,37 @@ This hands-on practice is divided into **three assignments**, each building upon
 
 ### Initial Setup
 
-1. **Fork this repository** to your GitHub account
-2. **Clone your fork** to your local machine:
+A word on why we do not use GitHub's Fork button: a fork of a public repository is
+itself always public, and GitHub will not let you make it private. Since your graded
+work must stay private until the course ends, forking would force you to choose between
+the rules and the tooling. Instead, mirror the course repo into a new **private** repo
+of your own. It takes four commands and you only do it once.
+
+1. On GitHub, create a **new, empty, private** repository (no README, no `.gitignore`,
+   no license). Name it whatever you like, e.g. `ECE572_SecureText_yourname`.
+
+2. Mirror the course repo into your private repo:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/ECE572_Summer2025_SecureText.git
-   cd ECE572_Summer2025_SecureText
+   git clone --bare https://github.com/Ardeshir-Shon/ECE572_SecureText.git
+   cd ECE572_SecureText.git
+   git push --mirror https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git
+   cd ..
+   rm -rf ECE572_SecureText.git
    ```
-3. **Create a new branch** for your work:
+   (If that course-repo URL 404s, use the exact URL posted on Brightspace — the
+   repository name may differ between terms.)
+
+3. Clone your private repo and create a working branch:
    ```bash
-   git checkout -b assignmentX-solutions # or whatever name you prefer for the branch. In this name X is the assignment index
+   git clone https://github.com/YOUR_USERNAME/YOUR_PRIVATE_REPO.git
+   cd YOUR_PRIVATE_REPO
+   git checkout -b assignment1-solutions   # X in assignmentX-solutions is the assignment number
+   ```
+
+4. Add the course repo as `upstream` so you can pull fixes and updates during the term:
+   ```bash
+   git remote add upstream https://github.com/Ardeshir-Shon/ECE572_SecureText.git
+   git remote -v
    ```
 
 ### Repository Structure
@@ -123,7 +145,7 @@ For each assignment:
    git commit -m "Complete Assignment X Task Y"
    git push origin assignmentX-solutions
    ```
-5. **Submit on Brightspace** with your GitHub repository fork link along with the report reuploaded on the Brightspace
+5. **Submit on Brightspace** with the link to your private GitHub repository, and re-upload the report itself to Brightspace
 
 ## Tools You Might Need
 
@@ -160,7 +182,7 @@ Each assignment will be evaluated on:
 - Use **GenAI** for help but do not let **GenAI** to do all the work and you should understand everything yourself
 - If you used any **GenAI** help make sure you cite the contribution of **GenAI** properly
 - Properly cite any external resources or libraries used
-- Include your forked repository link in all submissions
+- Include your private repository link in all submissions
 
 ## Getting Help
 
