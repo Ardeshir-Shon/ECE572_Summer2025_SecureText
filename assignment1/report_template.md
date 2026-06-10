@@ -12,7 +12,7 @@
 **Student ID**: [Your Student ID]  
 **Assignment**: [Assignment 1/2/3]  
 **Date**: [Submission Date]  
-**GitHub Repository**: [Link to **your** forked repository]
+**GitHub Repository**: [Link to **your** private repository]
 
 ---
 
@@ -307,7 +307,7 @@ Before submitting, ensure you have:
 **Submission Instructions**:
 1. Save this report as PDF: `[StudentID]_Assignment[X]_Report.pdf`
 2. Submit PDF to Brightspace
-3. Include your GitHub repository fork link in the Brightspace submission comments
+3. Include your private GitHub repository link in the Brightspace submission comments
 4. Ensure your repository is private until after course completion otherwise you'll get zero grade
 
 **Final Notes**:

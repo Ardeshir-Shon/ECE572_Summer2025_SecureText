@@ -232,7 +232,7 @@ Use the provided `report_template.md` and include all necessary information
 
 ### Evidence Requirements
 - **Screenshots**: Console outputs, network captures, attack demonstrations
-- **Code Snippets**: Key implementation details (not entire files, entire files should be in the forked repo in the proper assignment deliverable)
+- **Code Snippets**: Key implementation details (not entire files, entire files should be in your private repo in the proper assignment deliverable)
 - **Logs**: Attack outputs, MAC verification results
 - **Performance Data**: Hash timing comparisons and other relevant information
 
@@ -265,7 +265,7 @@ Use the provided `report_template.md` and include all necessary information
 ---
 
 **Due Date**: June 18th, 2026
-**Submission**: Submit your completed report on Brightspace with your GitHub repository fork link
+**Submission**: Submit your completed report on Brightspace with the link to your private GitHub repository
 
 In this assignment series security vulnerabilities are everywhere - your job is to find them, attack and fix them systematically.
 
