@@ -1,0 +1,11 @@
+# Assignment 2 — pinned Python dependencies
+# Install with:  pip install -r requirements.txt
+
+# Task 4 — TOTP multi-factor authentication and QR-code provisioning.
+pyotp==2.9.0          # RFC 6238 TOTP generation/verification
+qrcode==7.4.2         # otpauth:// QR codes; .print_ascii() works in a console
+
+# Task 5 — GitHub OAuth 2.0 (authorization-code exchange, GitHub API calls).
+requests==2.31.0      # HTTP for the token exchange and /user lookups
+
+# Newer patch releases of these are fine; bump if your environment needs it.

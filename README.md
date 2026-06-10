@@ -161,7 +161,7 @@ For each assignment:
 ### Cryptographic Tools
 - **hashcat** (password cracking)
 - **OpenSSL** (cryptographic operations)
-- **hash_extender** or **HashPump** (length extension attacks)
+- **Length-extension**: a dependency-free reference attack ships at `tools/length_extension.py`; the `hashpumpy` pip package is a maintained alternative (the older `hash_extender`/`HashPump` tools often won't build on current systems)
 
 ### Python Libraries
 You may need to install additional Python packages.

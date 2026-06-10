@@ -153,7 +153,7 @@ The application sends messages in plaintext over the network, making them vulner
    - Create a message format that supports commands: `"CMD=SET_QUOTA&USER=bob&LIMIT=100"`
 
 2. **Length Extension Attack Implementation**:
-   - Use hash_extender or HashPump tools or implement the length extension attack from scratch to exploit and run the attack
+   - Mount the attack using any of: the dependency-free reference at `tools/length_extension.py` (read it, understand it, then use or adapt it), the maintained `hashpumpy` pip package, or your own from-scratch implementation. `hash_extender`/`HashPump` are listed in older guides but are painful to build on current systems — don't lose a day to them.
    - Demonstrate the exact attack scenario from course: 
      - Original: `"CMD=SET_QUOTA&USER=bob&LIMIT=100"`
      - Forged: `"CMD=SET_QUOTA&USER=bob&LIMIT=100&padding&CMD=GRANT_ADMIN&USER=attacker"`
@@ -186,7 +186,7 @@ sudo tcpdump -i lo -A -s 0 port 12345
 3. Apply filter: tcp.port == 12345
 
 
-#### Note that you can extend the hash yourself or use the current open source hash externder tools
+#### Note: you may extend the hash yourself, use the reference implementation in `tools/length_extension.py`, or use the `hashpumpy` package. Whichever you pick, you must be able to explain why the forged MAC validates.
 
 
 ### Deliverables
