@@ -101,7 +101,7 @@ OAuth 2.0 allows users to authenticate using existing accounts (e.g., GitHub) wi
 1. **Choose an OAuth Provider**:
    - Use **GitHub** as the OAuth provider for this task.
    - Register your application to obtain a **Client ID** and **Client Secret** from [GitHub Developer Settings](https://github.com/settings/developers).
-   - Set your redirect URI to a placeholder like `http://localhost`.
+   - Set your redirect URI to `http://localhost:8080/oauth/callback`.
 
 2. **Console-Based OAuth Login**:
    - Launch the authorization URL in the user’s default browser using Python.
