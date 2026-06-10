@@ -100,10 +100,16 @@ git checkout -b assignment3-solutions (or any other name you like)
 
 ### 1. Test Base Application
 ```bash
-cd src/
-python3 securetext.py server
-python3 securetext.py
+python3 src/securetext.py server   # run the server in one terminal
+python3 src/securetext.py          # run a client in another
 ```
+
+> **Heads-up — where `users.json` lives.** The server writes its user database to
+> `users.json` *relative to the directory you launch it from*, not to `src/`. If you
+> start the server from the repo root one day and from `src/` the next, you'll appear to
+> "lose" all your accounts — they're just in a different `users.json`. Pick one working
+> directory and stick with it. `users.json` is gitignored, so don't expect (or try) to
+> commit it.
 
 ### 2. Test Network Capture
 ```bash
