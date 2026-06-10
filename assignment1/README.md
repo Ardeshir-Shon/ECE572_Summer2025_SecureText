@@ -145,6 +145,13 @@ The application sends messages in plaintext over the network, making them vulner
    - Ensure the application can process these structured messages as key value format
    - Implement MAC verification for command messages(keep it simple)
 
+> **Buffer note.** The base app reads with `recv(1024)`. Once you add a hex MAC tag and the
+> longer `CMD=...` command payloads, a single message can exceed 1024 bytes and arrive
+> split across reads — which shows up as a `json.JSONDecodeError` that *looks* like a crypto
+> bug but isn't. If you hit that, either keep your test messages comfortably under the
+> buffer or bump the buffer / loop until you have a full JSON object. Don't redesign the
+> protocol for this.
+
 #### Part C: Length Extension Attack
 
 1. **Implement Vulnerable MAC**:
