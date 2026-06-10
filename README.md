@@ -29,11 +29,11 @@ This hands-on practice is divided into **three assignments**, each building upon
 - **Task 5**: OAuth Integration (third-party authentication)
 - **Task 6**: Zero Trust Implementation (identity verification, least privilege)
 
-### Assignment 3: Advanced Cryptography and Secure Communication
-**Focus**: End-to-end security and cryptographic protocols
-- **Task 7**: Asymmetric Cryptography (RSA/ECDSA key exchange)
-- **Task 8**: Digital Signatures (message authentication and non-repudiation)
-- **Task 9**: Secure Protocol Design (putting it all together)
+### Assignment 3: End-to-End Encryption
+**Focus**: E2EE messaging with ECDH key exchange, authenticated encryption, and session security
+- **Task 7**: ECDH Key Exchange (P-256, HKDF-SHA256 shared-key derivation)
+- **Task 8**: Authenticated Encryption (AES-256-GCM end-to-end; the server only routes ciphertext)
+- **Task 9**: Session Management (30-minute expiry, secure key cleanup, forward secrecy)
 
 ## Getting Started
 
