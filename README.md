@@ -2,14 +2,15 @@
 
 This repository contains a series of assignments for ECE 572 in Summer 2026, taught by Dr. Ardeshir Shojaeinasab. We will be using a console-based messenger application called "SecureText". Students will progressively identify vulnerabilities, demonstrate attacks, and implement security fixes across three assignments.
 
-## Learning Objectives
+## What You'll Work On
 
-By completing this assignment series, you will gain hands-on experience with:
-- Common security vulnerabilities and attack techniques
-- Cryptographic implementations and their pitfalls
-- Network security and traffic analysis
-- Authentication mechanisms and multi-factor authentication
-- Zero Trust security principles
+Over the three assignments you take SecureText from a deliberately broken messenger to one
+you'd actually trust, touching:
+- Common security vulnerabilities and the attacks that exploit them
+- Cryptographic implementations and the ways they go wrong
+- Network eavesdropping and traffic analysis
+- Authentication and multi-factor authentication
+- Zero Trust principles
 - Asymmetric cryptography and digital signatures
 
 ## Assignment Structure
@@ -164,7 +165,8 @@ For each assignment:
 - **Length-extension**: a dependency-free reference attack ships at `tools/length_extension.py`; the `hashpumpy` pip package is a maintained alternative (the older `hash_extender`/`HashPump` tools often won't build on current systems)
 
 ### Python Libraries
-You may need to install additional Python packages.
+Each assignment has its own `requirements.txt` listing the packages it needs — install with
+`pip install -r assignmentX/requirements.txt`. Assignment 1 runs on the standard library.
 
 ## Documentation
 
@@ -241,14 +243,5 @@ or sign up for a slot.
 - Start early - security implementations can be complex
 - Test your solutions thoroughly
 - Document your attacks with screenshots and logs
-
-## Learning Outcomes
-
-By the end of this lab series, you will have:
-- Built a secure messaging application from an insecure foundation
-- Demonstrated real-world attack techniques
-- Implemented modern authentication and cryptographic protocols
-- Gained practical experience with security tools and methodologies
-- Developed a security-first mindset for software development
 
 Good luck!

@@ -2,7 +2,7 @@
 
 **Use this template for all three assignments and modify if needed**
 
-**This template is made by GenAI help, if you believe some changes are required or some parts need revision, feel free to send a merge request or send an email!**
+**This template is a starting point, not a straitjacket. If a section doesn't fit your work, adapt it; if you think it should change for everyone, open a merge request or send me an email.**
 
 ---
 
