@@ -181,12 +181,53 @@ Each assignment will be evaluated on:
 
 ## Academic Integrity
 
-- All work must be your own individual effort
-- You may discuss concepts with classmates but not share code
-- Use **GenAI** for help but do not let **GenAI** to do all the work and you should understand everything yourself
-- If you used any **GenAI** help make sure you cite the contribution of **GenAI** properly
-- Properly cite any external resources or libraries used
-- Include your private repository link in all submissions
+Read this section as carefully as the tasks. It changed for 2026.
+
+The point of these assignments is the doing. The exam is built around the same attacks
+and fixes you implement here, and it asks you to reason as a security expert about
+scenarios you haven't seen — identify the threat, the attack, the defense. If you shortcut
+the assignment, you don't just risk a plagiarism flag; you walk into the exam having
+skipped the practice it tests. The grade you lose there is larger than the one you'd lose
+here. That is the whole reason for the rules below.
+
+So the rule for AI tools is about *where* they help, not whether you touch them. Use them
+to explain a concept, to debug an error you've already tried to read yourself, to check
+your understanding of length extension or HMAC. Do not use them to generate the substance
+— the attack scripts, the security fixes, the written analysis. That work has to be yours,
+authored and understood, because the exam assumes you did it.
+
+**Disclosure (required).** Every submission must include a `GENAI.md` file in that
+assignment's `deliverables/` folder. List the prompts you used in any meaningful way, and
+say which files an AI tool touched and how. This is not a trap — honest, specific
+disclosure is expected and fine. Heavy undisclosed use that surfaces later is the problem.
+
+**Explainability (required).** Anything you submit, you must be able to explain on request,
+in office hours or by email: *why does your forged MAC validate? why does HMAC resist the
+attack your other script just pulled off?* If you cannot explain your own submission, we
+treat that as an integrity issue, not a knowledge gap. This is exactly how the exam is
+graded, so it should not be a surprise.
+
+**Other people's code.** Don't submit someone else's implementation — not a classmate's,
+not a past student's, not a copy lifted from a public repo. Talking through ideas and
+approaches with classmates is genuinely fine and encouraged; sharing or copying code is
+not.
+
+**Reading real code vs. copying it.** This is a security course, and reading real-world
+code is part of learning it. Studying how a library computes HMAC, how OpenSSL structures
+something, or how a published length-extension tool works — in order to understand it — is
+encouraged, and you cite what you read. Copying any of it in as your submitted solution is
+not. The test is simple: is the work you hand in authored and understood by you? Cite your
+external resources and libraries, and include your private repository link in every
+submission.
+
+<!-- ===== OPTIONAL GRADED COMPONENT — delete from this marker to the closing marker to remove it ===== -->
+**Optional walkthrough (small bonus).** For a small bonus, give a ~3-minute walkthrough —
+recorded or in person — explaining *why your forged MAC validates*: the resumed internal
+state, the glue padding, and why knowing `H(k‖m)` is enough to extend it without ever
+knowing `k`. It's the clearest signal that the understanding is yours, and it's the kind of
+question the written exam will ask. Drop the recording link in your `GENAI.md` or report,
+or sign up for a slot.
+<!-- ===== end OPTIONAL GRADED COMPONENT ===== -->
 
 ## Getting Help
 

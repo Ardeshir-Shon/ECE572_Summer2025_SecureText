@@ -300,6 +300,7 @@ Before submitting, ensure you have:
 - [ ] **Tests**: Security and functionality tests implemented after fix
 - [ ] **GitHub Link**: Repository link included in report and Brightspace submission
 - [ ] **Academic Integrity**: All sources properly cited, work is your own
+- [ ] **AI Disclosure**: `GENAI.md` included in deliverables, disclosing any AI use
 
 ---
 
@@ -310,8 +311,8 @@ Before submitting, ensure you have:
 4. Ensure your repository is private until after course completion otherwise you'll get zero grade
 
 **Final Notes**:
-- Use **GenAI** for help but do not let **GenAI** to do all the work and you should understand everything yourself
-- If you used any **GenAI** help make sure you cite the contribution of **GenAI** properly
+- Disclose AI use in a `GENAI.md` file in your deliverables (prompts used, which files AI touched). See the Academic Integrity section of the root README.
+- Be ready to explain any code you submit. If you can't explain it, don't submit it.
 - Be honest about limitations and challenges
 - Focus on demonstrating understanding, not just working code
 - Proofread for clarity and technical accuracy

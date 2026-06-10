@@ -156,4 +156,7 @@ Make sure you include the following sections in your report:
 **Submission**: Submit your completed report on Brightspace with your GitHub repository link
 ---
 
-**Note**: In case you use GenAI you must note and reference collaboration of GenAI in detail showcasing what was the contribution in details.
+**Note on AI use**: If you use an AI tool, disclose it in a `GENAI.md` file in your
+deliverables — the prompts you used and which files it touched — and be ready to explain
+anything you submit. See the Academic Integrity section of the root README for the full
+policy.
