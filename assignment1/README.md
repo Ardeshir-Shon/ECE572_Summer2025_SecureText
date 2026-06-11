@@ -264,7 +264,7 @@ Use the provided `report_template.md` and include all necessary information
 
 ---
 
-**Due Date**: June 18th, 2026
+**Due Date**: June 19th, 2026
 **Submission**: Submit your completed report on Brightspace with the link to your private GitHub repository
 
 In this assignment series, security vulnerabilities are everywhere. Your job is to find them, attack and fix them systematically.
